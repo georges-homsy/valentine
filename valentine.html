@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            top: -20px;
+            user-select: none;
+            z-index: -1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px white;
+            z-index: 10;
+        }
+
+        .hint-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+            border: 2px dashed #ff4d6d;
+            max-width: 350px;
+            line-height: 1.6;
+            color: #444;
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { 
+            background-color: #808080; 
+            color: white; 
+            position: absolute; 
+            transition: 0.12s ease-out; 
+        }
+
+        .gif-container img {
+            max-width: 250px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-content" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="gif-container">
+            <img src="https://media.tenor.com/9vD_vFk1XmUAAAAM/cute-cat.gif" alt="Cute Cat">
+        </div>
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="container" style="display: flex; gap: 30px;">
+            <button id="yesBtn" class="btn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" class="btn" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        
+        window.onload = () => {
+            const rect = yesBtn.getBoundingClientRect();
+            noBtn.style.left = (rect.right + 30) + 'px';
+            noBtn.style.top = rect.top + 'px';
+            createHeartEffect();
+        };
+
+        function moveNoButton() {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            noBtn.style.left = Math.random() * maxX + 'px';
+            noBtn.style.top = Math.random() * maxY + 'px';
+        }
+
+        function createHeartEffect() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 300);
+        }
+
+        function celebrate() {
+            document.getElementById('main-content').innerHTML = `
+                <div style="text-align:center; padding: 20px; z-index: 100;">
+                    <h1 style="font-size: 3rem;">I can't wait! 🥰</h1>
+                    <img src="https://media.tenor.com/gU_669Sj89AAAAAM/milk-and-mocha-bear-couple.gif" width="250" style="border-radius: 20px; margin-bottom: 20px;">
+                    
+                    <div class="hint-card">
+                        <h2 style="color: #ff4d6d; margin-top: 0;">Dress warm & look pretty... ✨</h2>
+                        <p><strong>When:</strong> The 13th night</p>
+                        <p><strong>Pickup:</strong> Be ready by <strong>6:00 PM</strong> sharp 🕕</p>
+                        <hr style="border: 0; border-top: 1px solid #ffb3c1; margin: 15px 0;">
+                        <p style="font-style: italic;">"We’re heading somewhere peaceful. A quiet spot for just the two of us."</p>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
